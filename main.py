@@ -10,8 +10,8 @@ def main():
     a_rectangle = Rectangle(x=1, y=6, height=7, width=10, color=(100, 200, 125))
     a_rectangle.draw(canvas)
 
-    # s1 = Square(x=1, y=3, side=3, color=(0, 100, 222))
-    # s1.draw(canvas)
+    a_square = Square(x=1, y=3, side=3, color=(0, 100, 222))
+    a_square.draw(canvas)
 
     img_path = IMAGES / f'canvas_{int(time.time())}.png'
     canvas.make(img_path)
