@@ -8,8 +8,8 @@ class Canvas:
     A class representing a canvas for drawing shapes.
 
     Attributes:
-        height (float): The height of the canvas.
-        width (float): The width of the canvas.        
+        height (int): The height of the canvas.
+        width (int): The width of the canvas.        
         color (tuple): The RGB color of the canvas represented as a tuple (R, G, B).
         data (numpy.ndarray): A NumPy array representing the canvas data.
 
@@ -18,13 +18,13 @@ class Canvas:
             This method saves the canvas as an image file.
     """
 
-    def __init__(self, height: float, width: float, color: tuple) -> None:
+    def __init__(self, height: int, width: int, color: tuple) -> None:
         """
         Initializes a Canvas instance with the specified width, height, and color.
 
         Parameters:
-            height (float): The height of the canvas.
-            width (float): The width of the canvas.
+            height (int): The height of the canvas.
+            width (int): The width of the canvas.
             color (tuple): The RGB color of the canvas represented as a tuple (R, G, B).
         """
         self.height = height
@@ -33,7 +33,7 @@ class Canvas:
 
         # Initialize canvas data as a NumPy array filled with the specified color
         self.data = np.zeros(
-            shape=(self.height, self.width, 3), dtype=np.uint8)
+            shape=(int(self.height), int(self.width), 3), dtype=np.uint8)
         self.data[:] = self.color
 
     def make(self, image_path: Path) -> None:
@@ -53,9 +53,9 @@ class Square:
     A class representing a square shape.
 
     Attributes:
-        x (float): The x-coordinate of the square's top-left corner.
-        y (float): The y-coordinate of the square's top-left corner.
-        side (float): The length of each side of the square.
+        x (int): The x-coordinate of the square's top-left corner.
+        y (int): The y-coordinate of the square's top-left corner.
+        side (int): The length of each side of the square.
         color (tuple): The RGB color of the square represented as a tuple (R, G, B).
 
     Methods:
@@ -63,14 +63,14 @@ class Square:
             This method draws the square on the specified canvas.
     """
 
-    def __init__(self, x: float, y: float, side: float, color: tuple) -> None:
+    def __init__(self, x: int, y: int, side: int, color: tuple) -> None:
         """
         Initializes a Square instance with the specified position, side length, and color.
 
         Parameters:
-            x (float): The x-coordinate of the square's top-left corner.
-            y (float): The y-coordinate of the square's top-left corner.
-            side (float): The length of each side of the square.
+            x (int): The x-coordinate of the square's top-left corner.
+            y (int): The y-coordinate of the square's top-left corner.
+            side (int): The length of each side of the square.
             color (tuple): The RGB color of the square represented as a tuple (R, G, B).
         """
         self.x = x
@@ -89,12 +89,6 @@ class Square:
         bottom_right_x = self.x + self.side
         bottom_right_y = self.y + self.side
 
-        # # Ensure the coordinates are within the bounds of the canvas
-        # # This prevents drawing outside the canvas boundaries by limiting the bottom-right
-        # # x-coordinate to the width of the canvas and the bottom-right y-coordinate to the height of the canvas.
-        # bottom_right_x = min(bottom_right_x, canvas.width)
-        # bottom_right_y = min(bottom_right_y, canvas.height)
-
         # Fill the specified rectangle area on the canvas with the rectangle's color
         # Note: The order in slicing is [y1:y2, x1:x2] because NumPy arrays are indexed as (row, column) which corresponds to (y, x)
         # In the context of the Canvas class and the NumPy array used to represent the canvas data,
@@ -102,15 +96,16 @@ class Square:
         # y corresponds to the vertical axis (height) => row index.
         canvas.data[self.y:bottom_right_y, self.x:bottom_right_x] = self.color
 
+
 class Rectangle:
     """
     A class representing a rectangle shape.
 
     Attributes:
-        x (float): The x-coordinate of the rectangle's top-left corner.
-        y (float): The y-coordinate of the rectangle's top-left corner.
-        width (float): The width of the rectangle.
-        height (float): The height of the rectangle.
+        x (int): The x-coordinate of the rectangle's top-left corner.
+        y (int): The y-coordinate of the rectangle's top-left corner.
+        width (int): The width of the rectangle.
+        height (int): The height of the rectangle.
         color (tuple): The RGB color of the rectangle represented as a tuple (R, G, B).
 
     Methods:
@@ -118,15 +113,15 @@ class Rectangle:
             This method draws the rectangle on the specified canvas.
     """
 
-    def __init__(self, x: float, y: float, width: float, height: float, color: tuple) -> None:
+    def __init__(self, x: int, y: int, width: int, height: int, color: tuple) -> None:
         """
         Initializes a Rectangle instance with the specified position, width, height, and color.
 
         Parameters:
-            x (float): The x-coordinate of the rectangle's top-left corner.
-            y (float): The y-coordinate of the rectangle's top-left corner.
-            width (float): The width of the rectangle.
-            height (float): The height of the rectangle.
+            x (int): The x-coordinate of the rectangle's top-left corner.
+            y (int): The y-coordinate of the rectangle's top-left corner.
+            width (int): The width of the rectangle.
+            height (int): The height of the rectangle.
             color (tuple): The RGB color of the rectangle represented as a tuple (R, G, B).
         """
         self.x = x
@@ -145,12 +140,6 @@ class Rectangle:
         # Calculate the coordinates of the bottom-right corner of the rectangle
         bottom_right_x = self.x + self.width
         bottom_right_y = self.y + self.height
-
-        # # Ensure the coordinates are within the bounds of the canvas
-        # # This prevents drawing outside the canvas boundaries by limiting the bottom-right
-        # # x-coordinate to the width of the canvas and the bottom-right y-coordinate to the height of the canvas.
-        # bottom_right_x = min(bottom_right_x, canvas.width)
-        # bottom_right_y = min(bottom_right_y, canvas.height)
 
         # Fill the specified rectangle area on the canvas with the rectangle's color
         # Note: The order in slicing is [y1:y2, x1:x2] because NumPy arrays are indexed as (row, column) which corresponds to (y, x)

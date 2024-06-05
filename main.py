@@ -1,28 +1,56 @@
 import time
 from classes import Canvas, Square, Rectangle
+from app_utils import validate_int, validate_color, validate_shape_type
 from constants import *
 
 
-
 def main():
-    canvas = Canvas(height=20, width=30, color=(255, 255, 255))
 
-    a_rectangle = Rectangle(x=1, y=6, height=7, width=10, color=(100, 200, 125))
-    a_rectangle.draw(canvas)
+    # Prompt user for canvas information
+    canvas_width = validate_int("\n\n>> Enter the canvas width: ")
+    canvas_height = validate_int("   Enter the canvas height: ")
+    canvas_color = validate_color(
+        "   Enter the canvas color name (e.g., 'red'): ")
 
-    a_square = Square(x=1, y=3, side=3, color=(0, 100, 222))
-    a_square.draw(canvas)
+    # Create the canvas
+    canvas = Canvas(width=canvas_width,
+                    height=canvas_height, color=canvas_color)
 
-    img_path = IMAGES / f'canvas_{int(time.time())}.png'
-    canvas.make(img_path)
+    # Prompt user for shape type
+    shape_type = validate_shape_type(
+        "\n\n>> Enter the shape to draw (rectangle or square): ")
 
+    # Draw the specified shape on the canvas
+    if shape_type == "rectangle":
+        x = validate_int(
+            "\n\n>> Enter the x-coordinate of the top-left corner of the rectangle: ")
+        y = validate_int(
+            "   Enter the y-coordinate of the top-left corner of the rectangle: ")
+        width = validate_int("   Enter the width of the rectangle: ")
+        height = validate_int("   Enter the height of the rectangle: ")
+        color = validate_color(
+            "   Enter the color name of the rectangle (e.g., 'red'): ")
+        rect = Rectangle(x=x, y=y, width=width, height=height, color=color)
+        rect.draw(canvas)
 
-    # canvas = Canvas(width=200, height=100, color=(255, 255, 255))
-    # rect = Rectangle(x=10, y=20, width=30, height=40, color=(255, 0, 0))
-    # rect.draw(canvas)
-    # square = Square(x=50, y=50, side=20, color=(0, 255, 0))
-    # square.draw(canvas)
-    # canvas.make(image_path=Path('shapes.png'))
+    elif shape_type == "square":
+        x = validate_int(
+            "\n\n>> Enter the x-coordinate of the top-left corner of the square: ")
+        y = validate_int(
+            "   Enter the y-coordinate of the top-left corner of the square: ")
+        side = validate_int(
+            "   Enter the length of each side of the square: ")
+        color = validate_color(
+            "   Enter the color name of the square (e.g., 'red'): ")
+        square = Square(x=x, y=y, side=side, color=color)
+        square.draw(canvas)
+
+    # Save the canvas as an image
+    image_path = IMAGES / f'canvas_{int(time.time())}.png'
+    canvas.make(image_path)
+
+    # Return the image path
+    return image_path
 
 
 if __name__ == "__main__":
