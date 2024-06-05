@@ -31,7 +31,10 @@ class Canvas:
         self.width = width
         self.color = color
 
-        
+        # Initialize canvas data as a 3d NumPy array filled with the specified color
+        self.data = np.zeros(
+            shape=(self.height, self.width, 3), dtype=np.uint8)
+        self.data[:] = self.color
 
     def make(self, image_path: Path) -> None:
         """
@@ -40,7 +43,9 @@ class Canvas:
         Parameters:
             image_path (Path): The path where the image file will be saved.
         """
-        pass
+        # Create an image from the canvas data and save it to the specified path
+        image = Image.fromarray(obj=self.data, mode='RGB')
+        image.save(image_path)
 
 
 class Square:
