@@ -5,6 +5,8 @@ from constants import *
 
 
 def main():
+    # Display logo
+    print("\n\n\n\n", ASCII_ART)
 
     # Prompt user for canvas information
     canvas_width = validate_int("\n\n>> Enter the canvas width: ")
