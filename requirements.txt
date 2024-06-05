@@ -1,3 +1,2 @@
-filestack-python==3.5.0
-fpdf==1.7.2
-python-dotenv==1.0.1
+numpy==1.26.4
+pillow==10.3.0
