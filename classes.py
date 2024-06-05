@@ -1,5 +1,5 @@
-import numpy as np
 from PIL import Image
+import numpy as np
 from pathlib import Path
 
 
@@ -9,7 +9,7 @@ class Canvas:
 
     Attributes:
         height (float): The height of the canvas.
-        width (float): The width of the canvas.
+        width (float): The width of the canvas.        
         color (tuple): The RGB color of the canvas represented as a tuple (R, G, B).
         data (numpy.ndarray): A NumPy array representing the canvas data.
 
@@ -20,7 +20,7 @@ class Canvas:
 
     def __init__(self, height: float, width: float, color: tuple) -> None:
         """
-        Initializes a Canvas instance with the specified height, width, and color.
+        Initializes a Canvas instance with the specified width, height, and color.
 
         Parameters:
             height (float): The height of the canvas.
@@ -31,7 +31,7 @@ class Canvas:
         self.width = width
         self.color = color
 
-        # Initialize canvas data as a 3d NumPy array filled with the specified color
+        # Initialize canvas data as a NumPy array filled with the specified color
         self.data = np.zeros(
             shape=(self.height, self.width, 3), dtype=np.uint8)
         self.data[:] = self.color
@@ -128,4 +128,19 @@ class Rectangle:
         Parameters:
             canvas (Canvas): The canvas on which the rectangle will be drawn.
         """
-        pass
+        # Calculate the coordinates of the bottom-right corner of the rectangle
+        bottom_right_x = self.x + self.width
+        bottom_right_y = self.y + self.height
+
+        # # Ensure the coordinates are within the bounds of the canvas
+        # # This prevents drawing outside the canvas boundaries by limiting the bottom-right
+        # # x-coordinate to the width of the canvas and the bottom-right y-coordinate to the height of the canvas.
+        # bottom_right_x = min(bottom_right_x, canvas.width)
+        # bottom_right_y = min(bottom_right_y, canvas.height)
+
+        # Fill the specified rectangle area on the canvas with the rectangle's color
+        # Note: The order in slicing is [y1:y2, x1:x2] because NumPy arrays are indexed as (row, column) which corresponds to (y, x)
+        # In the context of the Canvas class and the NumPy array used to represent the canvas data,
+        # x corresponds to the horizontal axis (width) => column index;
+        # y corresponds to the vertical axis (height) => row index.
+        canvas.data[self.y:bottom_right_y, self.x:bottom_right_x] = self.color
