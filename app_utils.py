@@ -78,10 +78,10 @@ def validate_shape_type(prompt):
             # Prompt the user to enter a shape type
             shape_type = input(prompt).lower()
 
-            # Check if the entered shape type is either rectangle or square
-            if shape_type not in ['rectangle', 'square']:
+            # Check if the entered shape type is either rectangle or square or q
+            if shape_type not in ('rectangle', 'square', 'q'):
                 raise ValueError(
-                    "Invalid shape type. Please enter 'rectangle' or 'square'.")
+                    "Invalid shape type. Please enter 'rectangle', 'square', or 'q' for exit.")
 
             # Return the validated shape type
             return shape_type

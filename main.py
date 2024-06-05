@@ -16,34 +16,42 @@ def main():
     canvas = Canvas(width=canvas_width,
                     height=canvas_height, color=canvas_color)
 
-    # Prompt user for shape type
-    shape_type = validate_shape_type(
-        "\n\n>> Enter the shape to draw (rectangle or square): ")
+    while True:
+        # Prompt user for shape type
+        shape_type = validate_shape_type(
+            "\n\n>> Enter the shape to draw ('rectangle' or 'square', or 'q' for exit): ")
 
-    # Draw the specified shape on the canvas
-    if shape_type == "rectangle":
-        x = validate_int(
-            "\n\n>> Enter the x-coordinate of the top-left corner of the rectangle: ")
-        y = validate_int(
-            "   Enter the y-coordinate of the top-left corner of the rectangle: ")
-        width = validate_int("   Enter the width of the rectangle: ")
-        height = validate_int("   Enter the height of the rectangle: ")
-        color = validate_color(
-            "   Enter the color name of the rectangle (e.g., 'red'): ")
-        rect = Rectangle(x=x, y=y, width=width, height=height, color=color)
-        rect.draw(canvas)
+        # Draw the specified shape on the canvas
+        match shape_type:
 
-    elif shape_type == "square":
-        x = validate_int(
-            "\n\n>> Enter the x-coordinate of the top-left corner of the square: ")
-        y = validate_int(
-            "   Enter the y-coordinate of the top-left corner of the square: ")
-        side = validate_int(
-            "   Enter the length of each side of the square: ")
-        color = validate_color(
-            "   Enter the color name of the square (e.g., 'red'): ")
-        square = Square(x=x, y=y, side=side, color=color)
-        square.draw(canvas)
+            case 'rectangle':
+                x = validate_int(
+                    "\n\n>> Enter the x-coordinate of the top-left corner of the rectangle: ")
+                y = validate_int(
+                    "   Enter the y-coordinate of the top-left corner of the rectangle: ")
+                width = validate_int("   Enter the width of the rectangle: ")
+                height = validate_int("   Enter the height of the rectangle: ")
+                color = validate_color(
+                    "   Enter the color name of the rectangle (e.g., 'red'): ")
+                rect = Rectangle(x=x, y=y, width=width,
+                                 height=height, color=color)
+                rect.draw(canvas)
+
+            case 'square':
+                x = validate_int(
+                    "\n\n>> Enter the x-coordinate of the top-left corner of the square: ")
+                y = validate_int(
+                    "   Enter the y-coordinate of the top-left corner of the square: ")
+                side = validate_int(
+                    "   Enter the length of each side of the square: ")
+                color = validate_color(
+                    "   Enter the color name of the square (e.g., 'red'): ")
+                square = Square(x=x, y=y, side=side, color=color)
+                square.draw(canvas)
+
+            case _:  # 'q'
+                # Exit loop when user enters 'q'
+                break
 
     # Save the canvas as an image
     image_path = IMAGES / f'canvas_{int(time.time())}.png'
@@ -55,7 +63,8 @@ def main():
 
 if __name__ == "__main__":
     try:
-        main()
-        print('\n\n--- Image with the drawn shapes created and saved successfully. ---\n\n')
+        img_path = main()
+        print(f'\n\n--- Image with the drawn shapes created and saved successfully.\n\n    You can find it here "{
+              str(img_path)}" ---\n\n')
     except Exception as e:
         print(f'\n\n--- An error occured: "{e}" ---\n\n')
