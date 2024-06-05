@@ -48,53 +48,51 @@ class Canvas:
         image.save(image_path)
 
 
-class Square:
+class Circle:
     """
-    A class representing a square shape.
+    A class representing a circle shape.
 
     Attributes:
-        x (int): The x-coordinate of the square's top-left corner.
-        y (int): The y-coordinate of the square's top-left corner.
-        side (int): The length of each side of the square.
-        color (tuple): The RGB color of the square represented as a tuple (R, G, B).
+        x (int): The x-coordinate of the circle's center.
+        y (int): The y-coordinate of the circle's center.
+        radius (int): The radius of the circle.
+        color (tuple): The RGB color of the circle represented as a tuple (R, G, B).
 
     Methods:
         draw(canvas: Canvas) -> None:
-            This method draws the square on the specified canvas.
+            This method draws the circle on the specified canvas.
     """
 
-    def __init__(self, x: int, y: int, side: int, color: tuple) -> None:
+    def __init__(self, x: int, y: int, radius: int, color: tuple) -> None:
         """
-        Initializes a Square instance with the specified position, side length, and color.
+        Initializes a Circle instance with the specified position, radius, and color.
 
         Parameters:
-            x (int): The x-coordinate of the square's top-left corner.
-            y (int): The y-coordinate of the square's top-left corner.
-            side (int): The length of each side of the square.
-            color (tuple): The RGB color of the square represented as a tuple (R, G, B).
+            x (int): The x-coordinate of the circle's center.
+            y (int): The y-coordinate of the circle's center.
+            radius (int): The radius of the circle.
+            color (tuple): The RGB color of the circle represented as a tuple (R, G, B).
         """
         self.x = x
         self.y = y
-        self.side = side
+        self.radius = radius
         self.color = color
 
     def draw(self, canvas: Canvas) -> None:
         """
-        Draws the square on the specified canvas.
+        Draws the circle on the specified canvas.
 
         Parameters:
-            canvas (Canvas): The canvas on which the square will be drawn.
+            canvas (Canvas): The canvas on which the circle will be drawn.
         """
-        # Calculate the coordinates of the bottom-right corner of the square
-        bottom_right_x = self.x + self.side
-        bottom_right_y = self.y + self.side
+        # Create a mesh grid of x and y coordinates within the circle's bounding box
+        yy, xx = np.ogrid[:canvas.height, :canvas.width]
 
-        # Fill the specified rectangle area on the canvas with the rectangle's color
-        # Note: The order in slicing is [y1:y2, x1:x2] because NumPy arrays are indexed as (row, column) which corresponds to (y, x)
-        # In the context of the Canvas class and the NumPy array used to represent the canvas data,
-        # x corresponds to the horizontal axis (width) => column index;
-        # y corresponds to the vertical axis (height) => row index.
-        canvas.data[self.y:bottom_right_y, self.x:bottom_right_x] = self.color
+        # Calculate the distance of each point in the grid from the circle's center
+        distance = np.sqrt((xx - self.x)**2 + (yy - self.y)**2)
+
+        # Draw the circle by filling pixels within the radius with the circle's color
+        canvas.data[distance <= self.radius] = self.color
 
 
 class Rectangle:
@@ -140,6 +138,55 @@ class Rectangle:
         # Calculate the coordinates of the bottom-right corner of the rectangle
         bottom_right_x = self.x + self.width
         bottom_right_y = self.y + self.height
+
+        # Fill the specified rectangle area on the canvas with the rectangle's color
+        # Note: The order in slicing is [y1:y2, x1:x2] because NumPy arrays are indexed as (row, column) which corresponds to (y, x)
+        # In the context of the Canvas class and the NumPy array used to represent the canvas data,
+        # x corresponds to the horizontal axis (width) => column index;
+        # y corresponds to the vertical axis (height) => row index.
+        canvas.data[self.y:bottom_right_y, self.x:bottom_right_x] = self.color
+
+
+class Square:
+    """
+    A class representing a square shape.
+
+    Attributes:
+        x (int): The x-coordinate of the square's top-left corner.
+        y (int): The y-coordinate of the square's top-left corner.
+        side (int): The length of each side of the square.
+        color (tuple): The RGB color of the square represented as a tuple (R, G, B).
+
+    Methods:
+        draw(canvas: Canvas) -> None:
+            This method draws the square on the specified canvas.
+    """
+
+    def __init__(self, x: int, y: int, side: int, color: tuple) -> None:
+        """
+        Initializes a Square instance with the specified position, side length, and color.
+
+        Parameters:
+            x (int): The x-coordinate of the square's top-left corner.
+            y (int): The y-coordinate of the square's top-left corner.
+            side (int): The length of each side of the square.
+            color (tuple): The RGB color of the square represented as a tuple (R, G, B).
+        """
+        self.x = x
+        self.y = y
+        self.side = side
+        self.color = color
+
+    def draw(self, canvas: Canvas) -> None:
+        """
+        Draws the square on the specified canvas.
+
+        Parameters:
+            canvas (Canvas): The canvas on which the square will be drawn.
+        """
+        # Calculate the coordinates of the bottom-right corner of the square
+        bottom_right_x = self.x + self.side
+        bottom_right_y = self.y + self.side
 
         # Fill the specified rectangle area on the canvas with the rectangle's color
         # Note: The order in slicing is [y1:y2, x1:x2] because NumPy arrays are indexed as (row, column) which corresponds to (y, x)

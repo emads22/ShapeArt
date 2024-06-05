@@ -1,5 +1,5 @@
 import time
-from classes import Canvas, Square, Rectangle
+from classes import Canvas, Circle, Square, Rectangle
 from app_utils import validate_int, validate_color, validate_shape_type
 from constants import *
 
@@ -21,10 +21,21 @@ def main():
     while True:
         # Prompt user for shape type
         shape_type = validate_shape_type(
-            "\n\n>> Enter the shape to draw ('rectangle' or 'square', or 'q' for exit): ")
+            "\n\n>> Enter the shape to draw ('circle', 'rectangle' or 'square', or 'q' for exit): ")
 
         # Draw the specified shape on the canvas
         match shape_type:
+
+            case 'circle':
+                x = validate_int(
+                    "\n\n>> Enter the x-coordinate of the center of the circle: ")
+                y = validate_int(
+                    "   Enter the y-coordinate of the center of the circle: ")
+                radius = validate_int("   Enter the radius of the circle: ")
+                color = validate_color(
+                    "   Enter the color name of the circle (e.g., 'red'): ")
+                circle = Circle(x=x, y=y, radius=radius, color=color)
+                circle.draw(canvas)
 
             case 'rectangle':
                 x = validate_int(
@@ -35,9 +46,9 @@ def main():
                 height = validate_int("   Enter the height of the rectangle: ")
                 color = validate_color(
                     "   Enter the color name of the rectangle (e.g., 'red'): ")
-                rect = Rectangle(x=x, y=y, width=width,
-                                 height=height, color=color)
-                rect.draw(canvas)
+                rectangle = Rectangle(x=x, y=y, width=width,
+                                      height=height, color=color)
+                rectangle.draw(canvas)
 
             case 'square':
                 x = validate_int(

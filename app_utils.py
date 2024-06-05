@@ -62,16 +62,16 @@ def validate_color(prompt):
 
 def validate_shape_type(prompt):
     """
-    Prompts the user to enter a shape type (rectangle or square) and validates it.
+    Prompts the user to enter a shape type (circle, rectangle, square or q) and validates it.
 
     Parameters:
         prompt (str): The prompt to display to the user.
 
     Returns:
-        str: The validated shape type (rectangle or square).
+        str: The validated shape type (circle, rectangle, square or q).
 
     Raises:
-        ValueError: If the entered shape type is neither rectangle nor square.
+        ValueError: If the entered shape type is neither circle nor rectangle nor square nor q.
     """
     while True:
         try:
@@ -79,9 +79,9 @@ def validate_shape_type(prompt):
             shape_type = input(prompt).lower()
 
             # Check if the entered shape type is either rectangle or square or q
-            if shape_type not in ('rectangle', 'square', 'q'):
+            if shape_type not in ('circle', 'rectangle', 'square', 'q'):
                 raise ValueError(
-                    "Invalid shape type. Please enter 'rectangle', 'square', or 'q' for exit.")
+                    "Invalid shape type. Please enter 'circle', 'rectangle', 'square', or 'q' for exit.")
 
             # Return the validated shape type
             return shape_type

@@ -1,7 +1,7 @@
 # ShapeArt: Abstract Drawing Tool
 
 ## Overview
-Drawing Shapes on Canvas is a Python CLI application designed to create and save images of shapes drawn on a canvas. The application, now known as **`ShapeArt`**, allows users to draw rectangles and squares of various dimensions and colors on a canvas and save the resulting image. It leverages Object-Oriented Programming (OOP) principles for modularity and code organization.
+Drawing Shapes on Canvas is a Python CLI application designed to create and save images of shapes drawn on a canvas. The application, now known as **`ShapeArt`**, allows users to draw circles, rectangles, and squares of various dimensions and colors on a canvas and save the resulting image. It leverages Object-Oriented Programming (OOP) principles for modularity and code organization.
 
 ```sh
 
@@ -16,7 +16,7 @@ Drawing Shapes on Canvas is a Python CLI application designed to create and save
 
 ## Features
 - **Canvas Creation**: Create a canvas of specified width, height, and color.
-- **Draw Shapes**: Draw rectangles and squares of user-defined dimensions and colors on the canvas.
+- **Draw Shapes**: Draw circles, rectangles, and squares of user-defined dimensions and colors on the canvas.
 - **Save Image**: Save the canvas with drawn shapes as an image file.
 - **User Input Validation**: Validate user inputs to ensure they are correctly formatted and within acceptable ranges.
 
@@ -46,7 +46,7 @@ Drawing Shapes on Canvas is a Python CLI application designed to create and save
 2. **Enter Canvas Information**:
     - Follow the prompts to enter the canvas width, height, and color.
 3. **Draw Shapes**:
-    - Choose whether to draw a rectangle or square.
+    - Choose whether to draw a circle, rectangle or square.
     - Enter the position, size, and color of the shape.
 4. **Save Image**:
     - Once finished drawing, the canvas with shapes will be saved as an image file.
@@ -79,7 +79,7 @@ Here’s an example of how to use the Drawing Shapes on Canvas application:
 - **main.py**: The main script that runs the application and handles user input.
 - **constants.py**: Defines constants used throughout the project, such as file paths.
 - **app_utils.py**: Contains utility functions for validating user input (integer, color).
-- **classes.py**: Defines the core classes for the application: `Canvas`, `Square`, and `Rectangle`.
+- **classes.py**: Defines the core classes for the application: `Canvas`, `Circle`, `Square`, and `Rectangle`.
 
 ## Dependencies
 - **Pillow**: A Python Imaging Library that adds image processing capabilities to your Python interpreter.
