@@ -57,34 +57,37 @@ def validate_color(prompt):
 
         except ValueError as e:
             # Handle the case when the entered color name is not recognized
-            print(f'\n-- {e} --\n')
+            print(f'\n-- Invalid input. {e} --\n')
 
 
 def validate_shape_type(prompt):
     """
-    Prompts the user to enter a shape type (circle, rectangle, square or q) and validates it.
+    Prompt user to select a shape type from a list of options.
 
     Parameters:
-        prompt (str): The prompt to display to the user.
+        prompt (str): The prompt message to display.
 
     Returns:
-        str: The validated shape type (circle, rectangle, square or q).
-
-    Raises:
-        ValueError: If the entered shape type is neither circle nor rectangle nor square nor q.
+        str: The selected shape type.
     """
+    # Define shape options with indices
+    shape_types = ('circle', 'rectangle', 'square', 'exit')
+
     while True:
+        # Display shape options vertically
+        print("\n\n>> Available shape options:\n")
+        for idx, shape in enumerate(shape_types, start=1):
+            print(f"   {idx}. {shape.title()}")
+
+        # Prompt the user to enter a shape type index
         try:
-            # Prompt the user to enter a shape type
-            shape_type = input(prompt).lower()
-
-            # Check if the entered shape type is either rectangle or square or q
-            if shape_type not in ('circle', 'rectangle', 'square', 'q'):
+            # Convert input to zero-based index
+            idx = int(input(prompt).strip()) - 1
+            if 0 <= idx < len(shape_types):
+                return shape_types[idx]
+            else:
                 raise ValueError(
-                    "Invalid shape type. Please enter 'circle', 'rectangle', 'square', or 'q' for exit.")
-
-            # Return the validated shape type
-            return shape_type
+                    "Invalid input. Please enter a valid shape type index.")
         except ValueError as e:
-            # Handle the case when the entered shape type is not valid
-            print(f'\n-- {e} --\n')
+            # Handle the case when the entered index is not valid
+            print(f'\n-- Invalid input. {e} --\n')

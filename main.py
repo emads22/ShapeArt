@@ -21,7 +21,7 @@ def main():
     while True:
         # Prompt user for shape type
         shape_type = validate_shape_type(
-            "\n\n>> Enter the shape to draw ('circle', 'rectangle', 'square', or 'q' for exit): ")
+            "\n\n>> Select the number of the shape to draw: ")
 
         # Draw the specified shape on the canvas
         match shape_type:
@@ -62,8 +62,8 @@ def main():
                 square = Square(x=x, y=y, side=side, color=color)
                 square.draw(canvas)
 
-            case _:  # 'q'
-                # Exit loop when user enters 'q'
+            case _:  # 'exit'
+                # Exit loop when user selects 'exit'
                 break
 
     # Save the canvas as an image

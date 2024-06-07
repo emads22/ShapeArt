@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageDraw
 import numpy as np
 from pathlib import Path
 
@@ -85,14 +85,20 @@ class Circle:
         Parameters:
             canvas (Canvas): The canvas on which the circle will be drawn.
         """
-        # Create a mesh grid of x and y coordinates within the circle's bounding box
-        yy, xx = np.ogrid[:canvas.height, :canvas.width]
+        # Assign y_center and x_center to represent the coordinates of the circle's center
+        y_center, x_center = self.y, self.x
+        # Pre-calculate radius squared for efficiency to avoid using `sqrt` or `**0.5` in distance formula
+        radius_squared = self.radius ** 2
 
-        # Calculate the distance of each point in the grid from the circle's center
-        distance = np.sqrt((xx - self.x)**2 + (yy - self.y)**2)
+        # Loop over each pixel in the canvas
+        for y in range(canvas.data.shape[0]):
+            for x in range(canvas.data.shape[1]):
+                # Calculate the squared distance from the current pixel to the circle's center
+                distance_squared = (x - x_center) ** 2 + (y - y_center) ** 2
 
-        # Draw the circle by filling pixels within the radius with the circle's color
-        canvas.data[distance <= self.radius] = self.color
+                # If the squared distance is less than or equal to the squared radius, color the pixel
+                if distance_squared <= radius_squared:
+                    canvas.data[y, x] = self.color
 
 
 class Rectangle:
