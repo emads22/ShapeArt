@@ -20,6 +20,11 @@ Drawing Shapes on Canvas is a Python CLI application designed to create and save
 - **Save Image**: Save the canvas with drawn shapes as an image file.
 - **User Input Validation**: Validate user inputs to ensure they are correctly formatted and within acceptable ranges.
 
+## Technologies Used
+- **numpy**: A library for numerical computations and array operations.
+- **pillow**: A library for image processing in Python.
+- **webcolors**: A module for working with web color names and converting between color formats.
+
 ## Setup
 1. **Clone the Repository**:
     ```sh
